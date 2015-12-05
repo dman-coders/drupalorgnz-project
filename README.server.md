@@ -45,15 +45,6 @@ Drush dev-master (8.x) was installed for the aegir account using the process:
     composer global require "drush/drush:dev-master"
 
 
-## DNS
-
-Is through http://1stdomains.nz/ (don't ask why).
-It has a wildcard, to support additional subdomains for dev/test/preview,
-(but these will not be able to use the same SSL cert)
-
-    *.drupal.org.nz A 162.243.138.236
-
-
 ## Aegir quirks and bonuses
 
 The live site is largely managed/deployed via aegir

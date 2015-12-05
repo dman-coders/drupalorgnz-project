@@ -1,5 +1,7 @@
 # drupal.org.nz
 
+Support notes for team collaboration around the drupal.org.nz project.
+
 ## Contributing
 
 You should:
@@ -52,14 +54,14 @@ on that box is sufficient, and can be shared with the team.
 
 ## User
 
-Aegir (shared) user account has access to drush and is a mysql admin.
-You can hit the database using a locally memorized password.
+The Aegir (shared) user account on [the server](README.server.md)
+ * May be shared among the team,
+ * Can pull from our git repositories _but should not be used to commit back_
+ * has access to drush,
+ * owns all the web files
+ * has ability to read apache logs and hup apache,
+ * and is a mysql admin.
 
-    aegir@taranto$ mysql
-    mysql> create database drupalorgnz_sandbox;
-    mysql> GRANT ALL PRIVILEGES ON drupalorgnz_sandbox.* to drupalorgnz@localhost IDENTIFIED BY '{dbconnectionpass}';
-
-    mysql --user=drupalorgnz -p{dbconnectionpass} --host=taranto.coders.co.nz drupalorgnz_sandbox
 
 ## Database
 
@@ -76,6 +78,29 @@ Alternatively, you can fetch an sql-dump through the web UI
 
 The live database server does not offer an open port for direct MySQL connections.
 
+### Aegir user access to database
+
+You can hit the database using a locally memorized password - typing:
+
+    mysql
+
+should just work enough to give you lots of access.
+
+However, If you wanted to connect directly:
+
+    drush @drupal.org.nz sql-cli
+
+Is best, and is equivalent to something like:
+
+    mysql --user=drupalorgnz -p{dbconnectionpass} --host=taranto.coders.co.nz drupalorgnz_0
+
+#### Reference: the setup steps used to build a site db manually
+
+    aegir@taranto:~$ mysql
+      mysql> create database drupalorgnz_sandbox;
+      mysql> GRANT ALL PRIVILEGES ON drupalorgnz_sandbox.* to drupalorgnz@localhost IDENTIFIED BY '{dbconnectionpass}';
+
+
 ## Files
 
 The recommended way to pull copies of the latest live user files is using `drush rsync` .
@@ -85,6 +110,8 @@ The recommended way to pull copies of the latest live user files is using `drush
 Alternatively, you can fetch the files through the web UI using backup_migrate
  when logged in to the live site.
 
+Run that command with --debug option on to see the commands and paths being run
+ if you would rather set up your own sftp mappings or syncs.
 
 ## Code / Git
 
@@ -167,3 +194,18 @@ See [README.server.md](README.server.md)
 
 The Apache server has a verified SSL certificate installed, and **live** will
 bounce to https when possible.
+
+
+## DNS
+
+Is through http://1stdomains.nz/ (don't ask why).
+It has a wildcard, to support additional subdomains for dev/test/preview,
+(but these will not be able to use the same SSL cert)
+
+    *.drupal.org.nz A 162.243.138.236
+
+> Yes, there was some historical duplication with both drupal.net.nz
+ and drupal.org.nz being different working titles at diffent times.
+ 2014+ :
+  .net.nz (Managed by Bevan Rudge on behalf of the community)
+  redirects to .org.nz  (Managed by Dan Morrison on behalf of the community)
