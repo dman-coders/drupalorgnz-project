@@ -7,7 +7,13 @@ is ready to start messing with.
 
 `@d8.drupal.org.nz`
 
+Place the file named exactly
+
 `d8.drupal.org.nz.alias.drushrc.php`
+
+into your ~/.drush/
+
+    <?php
 
     $aliases["d8.drupal.org.nz"] = array (
       'root' => '/var/www/drupalnetnz/d8/docroot',
@@ -20,6 +26,10 @@ is ready to start messing with.
         '%site' => 'sites/default/',
       ),
     );
+
+To test, run
+
+  drush @d8.drupal.org.nz status
 
 ## Git
 

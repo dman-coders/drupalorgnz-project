@@ -45,13 +45,20 @@ Visit /upgrade on the site, and follow the process there.
 
 Read [Executing an upgrade from Drupal 6 or 7 to Drupal 8](https://www.drupal.org/node/2257723)
 
-    drush8 dl migrate_tools
+    drush8 dl migrate_tools migrate_upgrade
     drush8 en -y migrate_tools
 
     drush8 migrate-upgrade --legacy-db-url=mysql://drupaluser:@127.0.0.1:33067/drupalorgnz_d7 --legacy-root=http://drupal.org.nz --configure-only
+
     drush8 migrate-status
 
 O_o !? OK, that's why the GUI may be better for us the first few times around this track.
+
+To find the old legacy URL, I went
+
+     drush site-alias  @drupal.org.nz --with-db --show-passwords
+    drush migrate-upgrade --legacy-db-url=mysql://drupalorgnz_0:thepassword@taranto.coders.co.nz/drupalorgnz_0 --legacy-root=http://drupal.org.nz --configure-only
+
 
 If you hit problems, Read [Executing an upgrade from Drupal 6 or 7 to Drupal 8](https://www.drupal.org/node/2257723)
 
@@ -59,6 +66,34 @@ If you hit problems, Read [Executing an upgrade from Drupal 6 or 7 to Drupal 8](
 
 At this point, we have got _content_ available, with the known fields migrated.
 _users_ also seem to have come across.
+
+## Audit/risks
+
+From looking at the missed modules needin installing upgrading or replacing:
+
+* Views will not be ported, therefore assume view-related tech will have to be rebuilt anyway.
+
+
+Many goodies can be ignored. Noted risks are
+
+* Addressfield is needed - investigate
+* Date (investigate)
+* Display_suite
+* email_field (check vs core)
+* entityreference - in core, migrate path not here yet? **
+* Field slideshw - NOT - look for equvalents or demote out of MVP.
+* file_entity - probably core? Investigate if the medtadate comes over
+* global redirect - maybe?
+* google analytics - contrib available!
+
+
+* Future, maybe, unknown - does not impact MVP release.
+
+* BEF (better exposed filters)
+* Feeds - re-evaluate importance
+* block_class - useful if not in core already. 8.x-dev exists (theme enhancement)
+* field_group - migrate path needed but - is theme support only
+
 
 ## TODO
 
