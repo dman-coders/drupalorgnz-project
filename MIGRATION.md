@@ -73,6 +73,9 @@ From looking at the missed modules needin installing upgrading or replacing:
 
 * Views will not be ported, therefore assume view-related tech will have to be rebuilt anyway.
 
+Compare the d8 port status from the long list at
+https://www.drupal.org/project/contrib_tracker
+
 
 Many goodies can be ignored. Noted risks are
 
@@ -85,15 +88,59 @@ Many goodies can be ignored. Noted risks are
 * file_entity - probably core? Investigate if the medtadate comes over
 * global redirect - maybe?
 * google analytics - contrib available!
+* imagecache_actions - 8.x in dev, no migrate AFAIK, but ok
 
+* legal - investigate
+* link - !!! in core but migrate path has warning !! investigate.
+* list,number,options,phone, - warns but should be fine in core.
+* menu_block - equivalent function ality on core (?) - evaluate.
+* menu_position - unknown - evaluate.
+* metatag - 8.x exists, migration unknown.
+* mollom - 8.x stable, migration irrelevant.
+* pathauto - !! problem.
+* redirect - WIP - not yet
+* statistics - core, ok, low prioty
 
-* Future, maybe, unknown - does not impact MVP release.
+* views etc - will need manual work, but ??
+* views plugind (slideshow) will need rebuilding from scratch etc - theme
+* VBO - now in core.
+* webform - replaced with entityform
+* xmlsitemap - d8 dev exists - but broken today
+
+## Future, maybe, unknown - does not impact MVP release.
 
 * BEF (better exposed filters)
 * Feeds - re-evaluate importance
+* job_scheduler
 * block_class - useful if not in core already. 8.x-dev exists (theme enhancement)
 * field_group - migrate path needed but - is theme support only
+* page_title - mostly just theme support - unneeded in d8 field UI.
+* media - watch for this * evaluate.
+* rdf - To be looked at later
+* search_404 -
+* seo_checklist - no data, ignore until needed again.
 
+
+## Things we can mostly drop, or will be redundant in new theme
+
+* insert_view
+* jcarousel (drop and replace with new view)
+* shadowbox
+* linkchecker
+* openid
+* sitemap. Meh.
+
+* features, etc, strongarm.
+* toolbar
+* update
+* wysiwyg - core replaced
+
+## Some SUCCESS from downloading and enabling (OK)
+
+* aggregator
+* google_analytics
+* token
+* xmlsitemap
 
 ## TODO
 
@@ -102,7 +149,13 @@ But now comes the site-specific massaging.
 
 * **Nodes exist, and seem to have data, but no content displays**
   = The text format didn't come forwards.
+* entityreferences - companies,showcases failed OOTB
+* field_formatters - slideshow (not available), taxonomy_term_reference_plain
+* the custom (drupal block/block) blocks (the about footer etc) had formatting issues. - (text format undefined suspected)
+  Editing the block (not configure) and savig seems to self-heal mostly
 
+* users come across OK, BUT role did not re-associate. related to 'Administrator/administrator' name conflict.
+* we don't care about webforms - they are not in active use and don't migrate well.
 
 
 ## Reset
