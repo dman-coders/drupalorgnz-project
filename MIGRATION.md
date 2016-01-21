@@ -156,6 +156,10 @@ But now comes the site-specific massaging.
 
 * users come across OK, BUT role did not re-associate. related to 'Administrator/administrator' name conflict.
 * we don't care about webforms - they are not in active use and don't migrate well.
+* importing of field_formatter_settings (layouts on content types) half failed.
+  Problem field types seem to be:
+  link, taxonomy_term_ref, email, address.
+
 
 
 ## Reset
